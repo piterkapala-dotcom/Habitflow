@@ -1,0 +1,18 @@
+{
+  "name": "HabitFlow — Dobry dzień zaczyna się od nawyków",
+  "short_name": "HabitFlow",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f5f7fb",
+  "theme_color": "#0b0f19",
+  "orientation": "portrait",
+  "lang": "pl",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

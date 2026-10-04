@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b0f19">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="HabitFlow">
+<link rel="apple-touch-icon" href="icon.svg">
+<link rel="manifest" href="manifest.json">
+<title>HabitFlow</title>
+<style>
+:root{--bg:#f5f7fb;--card:#fff;--ink:#0b0f19;--muted:#71798a;--line:#e7eaf0;--green:#20c46b;--green2:#dff9ea;--dark:#0b0f19;--purple:#7457ff}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif}
+body{padding-bottom:88px}.app{max-width:720px;margin:auto;padding:18px 15px 30px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.brand{font-size:22px;font-weight:900;letter-spacing:-.5px}.brand span{color:var(--green)}
+.iconbtn{border:0;background:var(--card);width:42px;height:42px;border-radius:14px;font-size:19px;box-shadow:0 2px 12px #00000008}
+.hero{background:linear-gradient(135deg,#0b0f19,#1b2436);color:#fff;border-radius:27px;padding:22px;box-shadow:0 16px 40px #0b0f1920;margin-bottom:14px}
+.heroRow{display:flex;justify-content:space-between;align-items:center}.eyebrow{font-size:12px;color:#aeb7c8;text-transform:uppercase;letter-spacing:.12em;font-weight:800}.hero h1{margin:4px 0 3px;font-size:28px;letter-spacing:-1px}.hero p{margin:0;color:#aeb7c8;font-size:14px}.score{font-size:38px;font-weight:900}.bar{height:9px;background:#30394b;border-radius:20px;margin-top:18px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,#20c46b,#71f29f);width:0;border-radius:20px;transition:.3s}
+.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:14px 0}.quick .q{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px}.q b{display:block;font-size:20px}.q span{font-size:11px;color:var(--muted)}
+.nav{position:fixed;bottom:0;left:0;right:0;background:#ffffffee;backdrop-filter:blur(18px);border-top:1px solid var(--line);z-index:20;padding:8px max(12px,env(safe-area-inset-left)) calc(8px + env(safe-area-inset-bottom))}
+.navin{max-width:720px;margin:auto;display:grid;grid-template-columns:repeat(4,1fr)}.nav button{border:0;background:none;color:#8a92a1;font-weight:700;font-size:11px;padding:6px}.nav button b{display:block;font-size:20px;margin-bottom:2px}.nav button.active{color:var(--ink)}
+.sectionTitle{display:flex;justify-content:space-between;align-items:end;margin:22px 3px 9px}.sectionTitle h2{font-size:16px;margin:0}.sectionTitle small{color:var(--muted)}
+.habit{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:19px;padding:13px;margin:8px 0;min-height:62px;transition:.15s}.habit.done{background:var(--green2);border-color:#b9efcf}.check{width:34px;height:34px;border:2px solid #d6dae2;border-radius:12px;display:grid;place-items:center;flex:none;font-weight:900}.done .check{background:var(--green);border-color:var(--green);color:white}.habit .emoji{font-size:22px}.hn{flex:1}.hn b{display:block;font-size:14px}.hn small{color:var(--muted);font-size:11px}.streak{font-size:11px;color:#8a92a1;white-space:nowrap}.streak.hot{color:#f97316;font-weight:800}
+.card{background:var(--card);border:1px solid var(--line);border-radius:21px;padding:17px;margin:10px 0}.statsgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{background:#f7f8fb;border-radius:16px;padding:15px}.stat b{font-size:26px}.stat small{display:block;color:var(--muted);margin-top:3px}
+.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.calhead{text-align:center;color:var(--muted);font-size:10px;padding-bottom:3px}.calday{height:40px;border-radius:11px;background:#f1f3f6;display:grid;place-items:center;font-size:12px;position:relative}.calday.good{background:var(--green2);color:#087b3e;font-weight:800}.calday.today{outline:2px solid var(--ink)}.calday em{position:absolute;bottom:3px;width:4px;height:4px;border-radius:50%;background:var(--green)}
+.rowstat{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}.rowstat:last-child{border-bottom:0}.rowstat small{color:var(--muted)}
+.modal{position:fixed;inset:0;background:#0008;display:none;align-items:end;z-index:50}.modal.open{display:flex}.sheet{background:white;border-radius:26px 26px 0 0;width:100%;padding:22px 18px calc(22px + env(safe-area-inset-bottom));max-height:85vh;overflow:auto}.sheet h2{margin:0 0 14px}.field{margin:12px 0}.field label{font-size:12px;color:var(--muted);font-weight:800;display:block;margin-bottom:6px}.field input{width:100%;padding:13px;border:1px solid var(--line);border-radius:13px;font:inherit}.primary,.secondary{width:100%;border:0;border-radius:14px;padding:14px;font-weight:800;margin-top:8px}.primary{background:var(--dark);color:white}.secondary{background:#eef1f5}.danger{color:#b42318;background:#fff0ef}
+.install{background:#eeeaff;border:1px solid #ddd5ff;color:#4e36c8;border-radius:18px;padding:14px;margin:12px 0;font-size:13px}.hidden{display:none!important}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#0b0f19;color:#fff;padding:11px 15px;border-radius:14px;font-size:13px;z-index:80;display:none}
+@media(min-width:700px){.app{padding-top:35px}.nav{position:static;background:transparent;border:0;padding:0;margin-top:15px}.navin{background:var(--card);border:1px solid var(--line);border-radius:18px}.body{padding-bottom:0}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top"><div class="brand">Habit<span>Flow</span></div><button class="iconbtn" onclick="openSettings()">⚙️</button></header>
+  <main id="app"></main>
+</div>
+<nav class="nav"><div class="navin">
+<button data-page="today" class="active" onclick="page('today')"><b>✓</b>Dzisiaj</button>
+<button data-page="calendar" onclick="page('calendar')"><b>▦</b>Kalendarz</button>
+<button data-page="stats" onclick="page('stats')"><b>↗</b>Statystyki</button>
+<button data-page="settings" onclick="openSettings()"><b>⚙</b>Ustawienia</button>
+</div></nav>
+<div id="modal" class="modal" onclick="if(event.target.id==='modal')closeModal()"><div class="sheet" id="sheet"></div></div>
+<div class="toast" id="toast"></div>
+<script>
+const defaults=[
+["Zdrowie i energia","💧","Woda min. 2 l"],["Zdrowie i energia","🥗","Zdrowe posiłki"],["Zdrowie i energia","🚶","Min. 30 min ruchu"],["Zdrowie i energia","🏋️","Trening / aktywność"],["Zdrowie i energia","😴","Sen min. 7 h"],["Zdrowie i energia","🥤","Bez słodkich napojów"],["Zdrowie i energia","🍺","Bez alkoholu"],["Zdrowie i energia","🚫","Brak masturbacji"],["Zdrowie i energia","🍫","Brak słodyczy"],
+["Produktywność","⏰","Wstałem o zaplanowanej godzinie"],["Produktywność","📋","Zaplanowałem dzień"],["Produktywność","🎯","Zrobiłem najważniejsze zadanie"],["Produktywność","📱","Ograniczyłem social media"],["Produktywność","📚","20 min nauki / czytania"],["Produktywność","🧹","10 min porządku"],
+["Psychika i rozwój","🧘","10 min wyciszenia"],["Psychika i rozwój","✍️","3 rzeczy, za które jestem wdzięczny"],["Psychika i rozwój","🌅","Bez telefonu 30 min po przebudzeniu"],["Psychika i rozwój","🌙","Bez telefonu 30 min przed snem"],
+["Finanse","💰","Bez niepotrzebnego zakupu"],["Finanse","💵","Odłożyłem / zainwestowałem pieniądze"],["Finanse","📊","Sprawdziłem wydatki"]
+];
+let state=JSON.parse(localStorage.getItem("habitflow_pro")||"{}");
+state.habits ||= defaults;
+state.done ||= {};
+const save=()=>localStorage.setItem("habitflow_pro",JSON.stringify(state));
+const dk=d=>{const x=new Date(d);return new Date(x.getTime()-x.getTimezoneOffset()*60000).toISOString().slice(0,10)};
+const today=()=>dk(new Date());
+const isDone=(date,i)=>!!(state.done[date]?.[i]);
+const streak=(i)=>{let n=0,d=new Date();while(isDone(dk(d),i)){n++;d.setDate(d.getDate()-1)}return n};
+function toggle(i){const k=today();state.done[k]??={};state.done[k][i]=!isDone(k,i);save();render("today");if(state.done[k][i])toast("Nawyk zaliczony ✓")}
+function toast(t){let e=document.getElementById("toast");e.textContent=t;e.style.display="block";clearTimeout(window.tt);window.tt=setTimeout(()=>e.style.display="none",1300)}
+function dayPct(k){return Math.round(state.habits.reduce((a,_,i)=>a+isDone(k,i),0)/state.habits.length*100)}
+function page(p){document.querySelectorAll(".nav button").forEach(x=>x.classList.toggle("active",x.dataset.page===p));render(p)}
+function renderToday(){
+ const k=today(), count=state.habits.reduce((a,_,i)=>a+isDone(k,i),0), pct=Math.round(count/state.habits.length*100);
+ let html=`<section class="hero"><div class="heroRow"><div><div class="eyebrow">${new Date().toLocaleDateString("pl-PL",{weekday:"long"})}</div><h1>${new Date().toLocaleDateString("pl-PL",{day:"numeric",month:"long"})}</h1><p>${pct===100?"Dzień zaliczony. 🔥":"Zrób dzisiaj kolejny krok."}</p></div><div class="score">${pct}%</div></div><div class="bar"><i style="width:${pct}%"></i></div></section>
+ <div class="quick"><div class="q"><b>${count}/${state.habits.length}</b><span>Dzisiaj</span></div><div class="q"><b>🔥 ${Math.max(...state.habits.map((_,i)=>streak(i)))}</b><span>Najlepsza seria</span></div><div class="q"><b>${Object.keys(state.done).length}</b><span>Dni z wpisami</span></div></div>`;
+ let cat="";state.habits.forEach(([c,e,n],i)=>{if(c!==cat){html+=`<div class="sectionTitle"><h2>${c}</h2></div>`;cat=c}let s=streak(i);html+=`<div class="habit ${isDone(k,i)?"done":""}" onclick="toggle(${i})"><div class="check">${isDone(k,i)?"✓":""}</div><div class="emoji">${e}</div><div class="hn"><b>${n}</b><small>${s>0?"Seria: "+s+" dni":"Zacznij serię dziś"}</small></div><div class="streak ${s>=3?"hot":""}">${s>=3?"🔥 "+s:""}</div></div>`});
+ document.getElementById("app").innerHTML=html;
+}
+function renderCalendar(){
+ let d=new Date();let y=d.getFullYear(),m=d.getMonth();let first=new Date(y,m,1),start=(first.getDay()+6)%7;let days=new Date(y,m+1,0).getDate();
+ let html=`<div class="sectionTitle"><h2>${d.toLocaleDateString("pl-PL",{month:"long",year:"numeric"})}</h2><small>Realizacja dnia</small></div><div class="card"><div class="calendar">`;
+ ["Pn","Wt","Śr","Cz","Pt","Sb","Nd"].forEach(x=>html+=`<div class="calhead">${x}</div>`);
+ for(let i=0;i<start;i++)html+="<div></div>";
+ for(let n=1;n<=days;n++){let x=new Date(y,m,n),k=dk(x),p=dayPct(k);html+=`<div class="calday ${p>=80?"good":""} ${k===today()?"today":""}">${n}${p>0?'<em></em>':""}</div>`}
+ html+=`</div></div><div class="sectionTitle"><h2>Ostatnie dni</h2></div>`;
+ for(let x=6;x>=0;x--){let z=new Date();z.setDate(z.getDate()-x);let k=dk(z),p=dayPct(k);html+=`<div class="rowstat"><span>${z.toLocaleDateString("pl-PL",{weekday:"long",day:"numeric",month:"short"})}</span><b>${p}%</b></div>`}
+ document.getElementById("app").innerHTML=html;
+}
+function renderStats(){
+ let all=0;Object.values(state.done).forEach(d=>Object.values(d).forEach(v=>all+=v?1:0));
+ let avg=Object.keys(state.done).length?Math.round(Object.keys(state.done).reduce((a,k)=>a+dayPct(k),0)/Object.keys(state.done).length):0;
+ let best=Math.max(...state.habits.map((_,i)=>streak(i)));
+ let html=`<div class="sectionTitle"><h2>Twoje wyniki</h2></div><div class="statsgrid"><div class="stat"><b>${avg}%</b><small>średnia realizacja</small></div><div class="stat"><b>${best}</b><small>najlepsza seria</small></div><div class="stat"><b>${all}</b><small>wykonanych nawyków</small></div><div class="stat"><b>${Object.keys(state.done).length}</b><small>dni z aktywnością</small></div></div><div class="sectionTitle"><h2>Nawyki</h2></div>`;
+ state.habits.forEach(([c,e,n],i)=>{let total=Object.keys(state.done).reduce((a,k)=>a+isDone(k,i),0),s=streak(i);html+=`<div class="card"><div class="rowstat"><span>${e} ${n}</span><b>${total}</b></div><small>Aktualna seria: ${s} dni</small></div>`});
+ document.getElementById("app").innerHTML=html;
+}
+function openSettings(){
+ let html=`<div class="sheet"><h2>Ustawienia</h2><div class="install"><b>📲 Instalacja na iPhonie</b><br>Otwórz aplikację w Safari → Udostępnij → <b>Dodaj do ekranu początkowego</b>. Po instalacji działa jak aplikacja i może działać offline.</div><button class="secondary" onclick="addHabit()">＋ Dodaj własny nawyk</button><button class="secondary" onclick="exportData()">⬇️ Eksportuj dane</button><button class="secondary danger" onclick="clearAll()">Usuń wszystkie dane</button><button class="secondary" onclick="closeModal()">Zamknij</button><div class="sectionTitle"><h2>Twoje nawyki</h2></div>`;
+ state.habits.forEach(([c,e,n],i)=>html+=`<div class="rowstat"><span>${e} ${n}<small>${c}</small></span><button class="iconbtn" onclick="removeHabit(${i})">×</button></div>`);
+ html+=`</div>`;document.getElementById("sheet").innerHTML=html;document.getElementById("modal").classList.add("open");
+}
+function closeModal(){document.getElementById("modal").classList.remove("open")}
+function addHabit(){
+ document.getElementById("sheet").innerHTML=`<h2>Nowy nawyk</h2><div class="field"><label>NAZWA</label><input id="hn" placeholder="np. 10 minut spaceru"></div><div class="field"><label>KATEGORIA</label><input id="hc" value="Moje nawyki"></div><button class="primary" onclick="saveHabit()">Dodaj nawyk</button><button class="secondary" onclick="openSettings()">Anuluj</button>`;
+}
+function saveHabit(){let n=document.getElementById("hn").value.trim(),c=document.getElementById("hc").value.trim()||"Moje nawyki";if(!n)return;state.habits.push([c,"✨",n]);save();closeModal();render("today");toast("Dodano nawyk ✓")}
+function removeHabit(i){if(confirm("Usunąć ten nawyk?")){state.habits.splice(i,1);save();openSettings();}}
+function clearAll(){if(confirm("Usunąć wszystkie zaznaczenia?")){state.done={};save();closeModal();render("today")}}
+function exportData(){const blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="habitflow-backup.json";a.click()}
+function render(p){if(p==="today")renderToday();else if(p==="calendar")renderCalendar();else renderStats()}
+if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
+render("today");
+</script>
+</body></html>
