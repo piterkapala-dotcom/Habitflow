@@ -105,5 +105,6 @@ function exportData(){const blob=new Blob([JSON.stringify(state,null,2)],{type:"
 function render(p){if(p==="today")renderToday();else if(p==="calendar")renderCalendar();else renderStats()}
 if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
 render("today");
+  <script src="dopamine-score.js"></script>
 </script>
 </body></html>
